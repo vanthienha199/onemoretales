@@ -128,11 +128,12 @@ html.title-safe .title .lt, html.title-safe .title .hc { opacity: 1; }
 @keyframes rexin { from { transform: translateX(var(--x0)); } to { transform: translateX(var(--x1)); } }
 @keyframes rexout { from { transform: translateX(var(--x1)); opacity: 1; } 65% { opacity: 1; } to { transform: translateX(var(--x2)); opacity: 0; } }
 .skipfx { position: absolute; right: -6px; top: -10px; z-index: 5; pointer-events: auto; background: var(--paper); color: var(--ink); text-shadow: none; font-family: "Nunito", system-ui, sans-serif; font-weight: 900; font-size: 14px; line-height: 1.2; letter-spacing: 0; border: 2.5px solid var(--ink); border-radius: 999px; padding: 4px 12px; cursor: pointer; box-shadow: 0 3px 0 var(--ink); }
-@media (min-width: 1200px) { .pitch { white-space: nowrap; } }
+.rexv { position: absolute; z-index: 4; left: 0; top: 0; height: auto; max-width: none; pointer-events: none; opacity: 0; transition: opacity .22s linear; -webkit-mask-image: linear-gradient(90deg, #000 76%, transparent 97%); mask-image: linear-gradient(90deg, #000 76%, transparent 97%); }
+.rexv.on { opacity: 1; } .rexv.gone { opacity: 0; transition-duration: .3s; }
 .cue { position: absolute; z-index: 3; left: 30%; top: calc(100svh - 104px); width: 56px; height: 56px; display: grid; place-items: center; animation: hop 1.3s var(--ease) infinite; }
 .cue svg { width: 56px; height: 56px; filter: drop-shadow(0 4px 0 rgba(24, 26, 54, .25)); }
-.pitch { display: inline-block; font-size: clamp(20px, 1.9vw, 24px); font-weight: 800; max-width: 24em; line-height: 1.4; background: var(--paper); border: 3px solid var(--ink); border-radius: 12px; padding: 10px 18px; box-shadow: 0 5px 0 var(--ink); }
-.pitch b { background: linear-gradient(transparent 58%, var(--sun) 58%); padding: 0 2px; }
+.pitch { display: inline-block; max-width: 100%; font-size: clamp(19px, 1.8vw, 24px); font-weight: 800; line-height: 1.45; background: var(--paper); border: 3px solid var(--ink); border-radius: 12px; padding: 10px 18px; box-shadow: 0 5px 0 var(--ink); }
+.pitch b { background: linear-gradient(transparent 58%, var(--sun) 58%); padding: 0 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .ctas { display: flex; gap: var(--s4); flex-wrap: wrap; margin-top: var(--s5); }
 .intro .proof { display: flex; width: fit-content; }
 .proof { display: inline-flex; align-items: center; gap: 14px; margin-top: var(--s5); background: #fff; border: 3px solid var(--ink); border-radius: 12px; padding: 10px 18px 10px 10px; box-shadow: 0 5px 0 var(--ink); transform: rotate(var(--r, 0deg)); }
@@ -188,7 +189,7 @@ html.title-safe .title .lt, html.title-safe .title .hc { opacity: 1; }
   .tgrid { grid-template-columns: 1fr; padding: 0; }
   .intro { min-height: 0; padding: calc(var(--nav) + 14px) var(--s3) var(--s3); }
   .intro .kicker { display: none; }
-  .title { font-size: calc((100vw - 32px) / 6.3); margin: 6px 0 var(--s4); }
+  .title { font-size: calc((100vw - 32px) / 6.3); margin: 22px 0 var(--s4); }
   .pitch { font-size: 17px; padding: 8px 12px; }
   .cue, .bd-castle .clouds { display: none; }
   .ctas { gap: var(--s3); margin-top: var(--s4); } .ctas .brick { font-size: 17px; padding: 9px 14px; }
@@ -365,7 +366,7 @@ footer a { color: #fff; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .snap, .title .lt, .title .hc { opacity: 1 !important; } html { scroll-behavior: auto; } .introfx, .cue { display: none; }
+  .snap, .title .lt, .title .hc { opacity: 1 !important; } html { scroll-behavior: auto; } .introfx, .cue, .rexv { display: none !important; }
   .night .flyer { display: none; }
 }
 </style>
@@ -417,7 +418,9 @@ footer a { color: #fff; }
         <img class="hc" id="cLeo" src="img/hero-leo-hug.png" alt="" width="365" height="520" style="--i:0">
         <img class="hc" id="cRot" src="img/hero-rot-hang.png" alt="" width="400" height="520" style="--i:1">
         <img class="hc" id="cHat" src="img/hero-hattrick-sit.png" alt="" width="458" height="520" style="--i:2">
+        <video class="rexv" id="rexv" muted playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
       </h1>
+      <script>(function(){var d=document.documentElement;if(!d.classList.contains('intro-run'))return;var v=document.getElementById('rexv'),ua=navigator.userAgent,s='';var ios=/iP(hone|ad|od)/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);var safari=ios||(/Safari\//.test(ua)&&!/Chrome|Chromium|CriOS|Edg|OPR|Firefox|FxiOS|Android/.test(ua));if(safari){if(v.canPlayType('video/mp4; codecs="hvc1"')||v.canPlayType('video/quicktime; codecs="hvc1"'))s='v/rex-hevc.mov'}else if(v.canPlayType('video/webm; codecs="vp9"')||v.canPlayType('video/webm; codecs="vp09.00.10.08"')){s='v/rex-vp9.webm'}if(s){v.src=s;d.classList.add('rex-video')}})();</script>
       <p class="pitch snap" style="--i:4">Roblox-style story Shorts, <b>from script to final cut.</b></p>
       <div class="ctas snap" style="--i:5">
         <a class="brick" href="#watch"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3l12 7-12 7z" fill="currentColor"/></svg>Watch the tales</a>
@@ -864,11 +867,37 @@ function runIntro() {
   finishIntro.t2 = setTimeout(() => revealTitle(0), 880);
   finishIntro.t3 = setTimeout(finishIntro, 2600);
 }
+/* rendered intro: the clip's wall (pixels in the clip) is laid over the title letters */
+const REX = { w: 1314, wl: 473, wr: 1104, wb: 421, reveal: 1.02 };
+function runVideoIntro() {
+  const v = $('#rexv');
+  const hb = title.getBoundingClientRect(), lts = LT.map(l => l.getBoundingClientRect()), F = parseFloat(getComputedStyle(title).fontSize);
+  const x0 = Math.min(...lts.map(r => r.left)) - hb.left, x1 = Math.max(...lts.map(r => r.right)) - hb.left, y1 = Math.max(...lts.map(r => r.bottom)) - hb.top - F * .1;
+  const sc = (x1 - x0) / (REX.wr - REX.wl);
+  v.style.width = (REX.w * sc) + 'px'; v.style.left = (x0 - REX.wl * sc) + 'px'; v.style.top = (y1 - REX.wb * sc) + 'px';
+  const skip = document.createElement('button'); skip.className = 'skipfx'; skip.type = 'button'; skip.textContent = 'Skip intro'; title.appendChild(skip);
+  let started = false, revealed = false, done = false;
+  const end = () => { if (done) return; done = true; skip.remove(); v.classList.add('gone'); setTimeout(() => { v.pause(); v.remove(); }, 350); try { sessionStorage.setItem('omt-intro', '1'); } catch (e) {} };
+  const fail = () => { if (started || done) return; done = true; skip.remove(); v.remove(); document.documentElement.classList.remove('rex-video'); runIntro(); };
+  skip.addEventListener('click', () => { end(); LT.concat(HC).forEach(el => { el.style.animationDelay = '0ms'; el.classList.add('in'); }); });
+  const tmo = setTimeout(fail, 2600);
+  v.addEventListener('error', fail, { once: true });
+  const tick = () => {
+    if (done) return;
+    if (!revealed && v.currentTime >= REX.reveal) { revealed = true; revealTitle(0); }
+    if (v.ended || (v.duration && v.currentTime >= v.duration - .03)) { if (!revealed) { revealed = true; revealTitle(0); } end(); return; }
+    requestAnimationFrame(tick);
+  };
+  const p = v.play();
+  const go = () => { if (done) return; started = true; clearTimeout(tmo); v.classList.add('on'); requestAnimationFrame(tick); };
+  if (p && p.then) p.then(go, fail); else v.addEventListener('playing', go, { once: true });
+}
 let introStarted = false;
 function heroStart() {
   if (introStarted) return; introStarted = true;
   placeCast();
-  if (document.documentElement.classList.contains('intro-run')) runIntro(); else revealTitle(120);
+  const d = document.documentElement;
+  if (d.classList.contains('intro-run') && d.classList.contains('rex-video')) runVideoIntro(); else if (d.classList.contains('intro-run')) runIntro(); else revealTitle(120);
 }
 (document.fonts && document.fonts.ready ? Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 900))]) : Promise.resolve()).then(heroStart);
 let rzc; addEventListener('resize', () => { clearTimeout(rzc); rzc = setTimeout(placeCast, 120); });
