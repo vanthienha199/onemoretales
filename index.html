@@ -345,12 +345,16 @@ html.title-safe .title .lt, html.title-safe .title .hc { opacity: 1; }
 @media (max-width: 520px) { .ogrid { grid-template-columns: 1fr; } .ob.hero { grid-column: auto; } }
 
 /* ===== CONTACT: dusk sky over a green plate with the cast ===== */
+.churchband { background: #1d3b6e; color: #fff; padding: var(--s8) 0; border-top: 3px solid var(--ink); }
+.churchband .k { font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 14px; opacity: .8; }
+.churchband h2 { font-size: clamp(40px, 6vw, 72px); line-height: 1; margin: var(--s2) 0 var(--s3); }
+.churchband p { max-width: 36em; font-size: clamp(17px, 1.6vw, 20px); margin: 0 0 var(--s4); }
 .contact { background: linear-gradient(180deg, #ff9f6e 0%, #ffcf86 45%, #ffe9b0 100%); padding-top: var(--s8); overflow: hidden; border-top: 3px solid var(--ink); }
 .contact h2 { font-size: clamp(56px, 9vw, 128px); line-height: .95; }
 .contact .sub { font-size: clamp(19px, 2vw, 24px); font-weight: 800; margin-top: var(--s4); max-width: 26em; }
 .mail { display: flex; align-items: stretch; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s5); }
 .addr { display: flex; align-items: center; background: #fff; border: 3px solid var(--ink); border-radius: 10px; padding: 10px 18px; font-weight: 900; font-size: clamp(18px, 2.4vw, 26px); box-shadow: 0 6px 0 var(--ink); text-decoration: none; word-break: break-all; }
-.socials { display: flex; gap: var(--s4); flex-wrap: wrap; margin-top: var(--s6); }
+.socials { display: flex; gap: var(--s4); flex-wrap: wrap; margin-top: var(--s6); position: relative; z-index: 3; }
 .lineup { position: relative; height: clamp(260px, 30vw, 380px); margin-top: var(--s5); }
 .lineup .art { left: 0; right: 0; bottom: 0; height: 100%; }
 .plate { --c: #4cb944; height: 64px; border-top: 3px solid var(--ink); }
@@ -386,6 +390,7 @@ footer a { color: #fff; }
     <a href="#watch">Watch</a>
     <a href="#cast">Cast</a>
     <a href="#offer">What you get</a>
+    <a href="churches/">Church websites</a>
     <a class="brick" href="#contact">Work with me</a>
   </div>
 </nav>
@@ -529,12 +534,21 @@ footer a { color: #fff; }
   </div>
 </section>
 
+<section class="churchband" id="churches" aria-label="Church websites">
+  <div class="wrap">
+    <div class="k">Also from One More Tales</div>
+    <h2 class="disp">Church websites</h2>
+    <p>Fast, simple websites for churches: service times on the first screen, a Plan a Visit page, sermons and online giving. Three live demos to click through.</p>
+    <a class="brick" href="churches/">See the church demos</a>
+  </div>
+</section>
+
 <section class="contact" id="contact" aria-label="Work with me">
   <div class="wrap">
     <h2 class="disp toon snap">Work <span style="color:var(--sun)">with me</span></h2>
     <p class="sub snap" style="--i:1">Tell me about your channel or your game, and the kind of tale you want. I reply by email.</p>
     <div class="mail snap" style="--i:2">
-      <a class="addr" id="addr" href="mailto:onemoretales1@gmail.com">onemoretales1@gmail.com</a>
+      <a class="addr" id="addr" href="mailto:hello@onemoretales.com">hello@onemoretales.com</a>
       <button class="brick" id="copy" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6" y="6" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M3 13V4a1 1 0 0 1 1-1h9" fill="none" stroke="currentColor" stroke-width="2.4"/></svg><span>Copy email</span></button>
     </div>
     <div class="socials snap" style="--i:3">
@@ -808,7 +822,7 @@ renderChips(); renderList(); play(EN[0].id, false);
 
 /* ---------- copy email ---------- */
 $('#copy').addEventListener('click', async () => {
-  const t = 'onemoretales1@gmail.com', b = $('#copy span');
+  const t = 'hello@onemoretales.com', b = $('#copy span');
   try { await navigator.clipboard.writeText(t); } catch (e) { const r = document.createRange(); r.selectNodeContents($('#addr')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); try { document.execCommand('copy'); } catch (_) {} }
   b.textContent = 'Copied'; clearTimeout(b.t); b.t = setTimeout(() => b.textContent = 'Copy email', 1800);
 });
