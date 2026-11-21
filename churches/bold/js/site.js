@@ -9,15 +9,19 @@
     nona: { times: 'Sundays at 10:00 AM', address: '6900 Tavistock Lakes Blvd, Orlando, FL 32827', parking: 'Park on level 1 of the Town Center garage. Our team waits at the elevator with coffee and directions.', slots: ['10:00 AM'], lastEnd: 11 * 60 + 15, name: 'Lake Nona campus' }
   };
   let campus = 'orlando';
-  function setCampus(c) {
-    campus = c; const d = CAMPUS[c];
+  function setCampus(c, animate) {
+    const changed = c !== campus; campus = c; const d = CAMPUS[c];
+    $$('.campus-switch').forEach(w => { w.dataset.active = c; });
     $$('.campus-switch button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.campus === c)));
-    $$('[data-c]').forEach(el => { el.textContent = d[el.dataset.c]; });
+    $$('[data-c]').forEach(el => {
+      el.textContent = d[el.dataset.c];
+      if (animate && changed && !reduce) { el.classList.remove('swap'); void el.offsetWidth; el.classList.add('swap'); }
+    });
     const sel = $('#nfCampus'); if (sel.value !== c) sel.value = c;
     fillVisitOptions();
   }
-  $$('.campus-switch button').forEach(b => b.addEventListener('click', () => setCampus(b.dataset.campus)));
-  $('#nfCampus').addEventListener('change', e => setCampus(e.target.value));
+  $$('.campus-switch button').forEach(b => b.addEventListener('click', () => setCampus(b.dataset.campus, true)));
+  $('#nfCampus').addEventListener('change', e => setCampus(e.target.value, true));
 
   function nyNow() {
     const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', weekday: 'short' }).formatToParts(new Date()).map(x => [x.type, x.value]));
@@ -41,7 +45,11 @@
     const t = Math.max(0, Math.floor(r.ms / 1000)), D = Math.floor(t / 86400), H = Math.floor(t % 86400 / 3600), M = Math.floor(t % 3600 / 60), S = t % 60;
     setText(chipLbl, 'Next live stream in'); setText(chipT, D > 0 ? `${D}d ${pad(H)}:${pad(M)}:${pad(S)}` : `${pad(H)}:${pad(M)}:${pad(S)}`);
     const v = { d: String(D), h: pad(H), m: pad(M), s: pad(S) };
-    boxes.forEach(b => setText(b, v[b.dataset.u]));
+    boxes.forEach(b => {
+      const val = v[b.dataset.u]; if (b.textContent === val) return;
+      if (reduce || !b.firstElementChild) { b.innerHTML = '<span class="tk-s"></span>'; b.firstChild.textContent = val; if (!reduce) b.firstChild.className = 'tk'; return; }
+      const sp = document.createElement('span'); sp.className = 'tk'; sp.textContent = val; b.replaceChildren(sp);
+    });
   }
   tick(); setInterval(tick, 1000);
 
@@ -58,6 +66,15 @@
   }
 
   let openers = new Map();
+  function closeDialog(dlg, after) {
+    if (!dlg.open) { if (after) after(); return; }
+    if (after) dlg.addEventListener('close', () => after(), { once: true });
+    if (reduce || dlg.classList.contains('closing')) { if (!dlg.classList.contains('closing')) dlg.close(); return; }
+    dlg.classList.add('closing');
+    let done = false; const fin = () => { if (done) return; done = true; dlg.classList.remove('closing'); dlg.close(); };
+    dlg.addEventListener('animationend', e => { if (e.target === dlg) fin(); }, { once: true });
+    setTimeout(fin, 320);
+  }
   function openDialog(dlg, opener) {
     openers.set(dlg, opener || document.activeElement);
     document.documentElement.classList.add('lock');
@@ -69,18 +86,20 @@
       const o = openers.get(dlg); if (o && o.isConnected && !dlg.dataset.skipFocus) o.focus({ preventScroll: true });
       delete dlg.dataset.skipFocus;
     });
-    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('click', e => { if (e.target === dlg) closeDialog(dlg); });
+    dlg.addEventListener('cancel', e => { e.preventDefault(); closeDialog(dlg); });
   }
 
   const menu = $('#menu');
   onDialogClose(menu);
   $('#menuBtn').addEventListener('click', e => openDialog(menu, e.currentTarget));
-  $('#menuClose').addEventListener('click', () => menu.close());
+  $('#menuClose').addEventListener('click', () => closeDialog(menu));
+  $$('#menu nav a').forEach((a, i) => a.style.setProperty('--i', i));
   menu.addEventListener('click', e => {
     const a = e.target.closest('a[href^="#"]'); if (!a) return;
-    e.preventDefault(); menu.dataset.skipFocus = '1'; menu.close();
+    e.preventDefault(); menu.dataset.skipFocus = '1';
     const t = document.querySelector(a.getAttribute('href'));
-    if (t) { t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); history.replaceState(null, '', a.getAttribute('href')); }
+    closeDialog(menu, () => { if (t) { t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); history.replaceState(null, '', a.getAttribute('href')); } });
   });
 
   const vid = $('#heroVid'), vt = $('#vidToggle');
@@ -117,12 +136,14 @@
   ];
   let cur = 0;
   $('#upnext').innerHTML = V.map((v, i) => `<li><button class="item" type="button" data-i="${i}" aria-current="${i === 0}"><span class="th"><img src="${v.th}" alt="" width="136" height="77" loading="lazy" decoding="async" style="object-position:${v.pos}"><span class="d">${v.dur}</span><span class="np">PLAYING</span></span><span><span class="t">${v.t}</span><span class="m">${v.s} · ${v.spk}</span></span></button></li>`).join('');
+  let preview = null;
   function info(i) {
     const v = V[i];
     setText($('#vTitle'), v.t); setText($('#vSpk'), v.spk); setText($('#vDate'), v.date);
     setText($('#poSeries'), v.s); setText($('#poTitle'), v.t); setText($('#poDur'), v.dur);
-    const pi = $('#posterImg'); pi.src = v.img; pi.style.objectPosition = v.pos;
-    $$('.item').forEach(b => b.setAttribute('aria-current', String(+b.dataset.i === i)));
+    const pi = $('#posterImg');
+    if (!pi.src.endsWith(v.img)) { pi.src = v.img; pi.style.objectPosition = v.pos; if (!reduce) { pi.classList.remove('swapimg'); void pi.offsetWidth; pi.classList.add('swapimg'); } }
+    $$('.item').forEach(b => b.setAttribute('aria-current', String(+b.dataset.i === (preview ?? i))));
   }
   const st = $('#pst'), sx = st.getContext('2d');
   function noiseFrame() { const d = sx.createImageData(st.width, st.height); for (let i = 0; i < d.data.length; i += 4) { const g = Math.random() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = g; d.data[i + 3] = 255; } sx.putImageData(d, 0, 0); }
@@ -133,7 +154,7 @@
     const osd = $('#osd'); osd.textContent = label; osd.classList.add('show'); clearTimeout(flash.t); flash.t = setTimeout(() => osd.classList.remove('show'), 1400);
   }
   function play(i) {
-    cur = i; info(i); flash(`CH ${pad(i + 1)}`);
+    cur = i; preview = null; info(i); flash(`CH ${pad(i + 1)}`);
     const pv = $('#pv'); if (!pv.src) pv.src = 'video/hero.mp4';
     pv.hidden = false; $('#poster').hidden = true; pv.play().catch(() => {});
     const note = $('#demoNote'); note.hidden = false; clearTimeout(play.t); play.t = setTimeout(() => { note.hidden = true; }, 3500);
@@ -144,6 +165,16 @@
     const r = $('#player').getBoundingClientRect(); if (r.top < 0 || r.bottom > innerHeight) $('#player').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
   });
   new IntersectionObserver(([e]) => { if (!e.isIntersecting) $('#pv').pause(); }).observe($('#player'));
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let warmed = false;
+    const list = $('#upnext');
+    list.addEventListener('pointerover', e => {
+      const b = e.target.closest('.item'); if (!b || !$('#pv').hidden) return;
+      if (!warmed) { warmed = true; V.forEach(v => { const im = new Image(); im.src = v.img; }); }
+      const i = +b.dataset.i; if (i === preview) return; preview = i; info(i);
+    });
+    list.addEventListener('pointerleave', () => { if (preview === null) return; preview = null; if ($('#pv').hidden) info(cur); });
+  }
 
   const vf = $('#visitForm'), emailOk = v => /^\S+@\S+\.\S+$/.test(v);
   vf.addEventListener('submit', e => {
@@ -183,11 +214,11 @@
   document.addEventListener('click', e => {
     const g = e.target.closest('[data-give]'); if (!g) return;
     e.preventDefault();
-    if (menu.open) { menu.dataset.skipFocus = '1'; menu.close(); }
+    if (menu.open) { menu.dataset.skipFocus = '1'; menu.classList.remove('closing'); menu.close(); }
     $('#gmStep1').hidden = false; $('#gmStep2').hidden = true; $('#gmErr').textContent = '';
     openDialog(gm, g.closest('dialog') ? $('#menuBtn') : g); calc(); amt.focus(); amt.select();
   });
-  $('#gmClose').addEventListener('click', () => gm.close());
+  $('#gmClose').addEventListener('click', () => closeDialog(gm));
   amt.addEventListener('input', () => { const c = amt.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1').slice(0, 7); if (c !== amt.value) amt.value = c; calc(); });
   $$('.gm-chips button').forEach(b => b.addEventListener('click', () => { amt.value = b.dataset.amt; calc(); }));
   $('#gmFees').addEventListener('change', calc);
@@ -197,7 +228,78 @@
     $('#gmSummary').textContent = `${money(total)} to ${$('#gmFund').value}, ${$('input[name="freq"]:checked').value.toLowerCase()}.`;
     $('#gmStep1').hidden = true; const s2 = $('#gmStep2'); s2.hidden = false; s2.focus();
   });
-  $('#gmAgain').addEventListener('click', () => gm.close());
+  $('#gmAgain').addEventListener('click', () => closeDialog(gm));
 
   setCampus('orlando');
+
+  const top = $('#top');
+  new IntersectionObserver(([e]) => top.classList.toggle('scrolled', !e.isIntersecting), { threshold: 0 }).observe($('.util'));
+
+  const rvSel = '.stats-in > div, .sec-head, .series-art, .series-copy, .wgrid > div, .ex-photo, .ex-grid article, .newform, .mcard, .ev-rail, .car-prog, .give-in > *, .beliefs li, .staff-h, .staff li, .prform, .prayer-in > div, .loc, .loc-note, .ha-card, .foot-grid > div';
+  const rvEls = $$(rvSel);
+  const sib = new Map();
+  rvEls.forEach(el => { const p = el.parentElement, n = sib.get(p) || 0; sib.set(p, n + 1); el.style.setProperty('--rv', Math.min(n, 5)); el.classList.add('rv'); });
+  const vh = innerHeight;
+  rvEls.forEach(el => { if (el.getBoundingClientRect().top < vh * .92) el.classList.add('in', 'nt'); });
+  requestAnimationFrame(() => requestAnimationFrame(() => rvEls.forEach(el => el.classList.remove('nt'))));
+  const rio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
+  rvEls.forEach(el => { if (!el.classList.contains('in')) rio.observe(el); });
+  addEventListener('load', () => setTimeout(() => { $$('.rv:not(.in)').forEach(el => { const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('in'); }); }, 2500));
+
+  const counters = $$('[data-count]');
+  if (!reduce) {
+    const fmt = n => n.toLocaleString('en-US');
+    const cio = new IntersectionObserver(es => {
+      const hit = es.filter(e => e.isIntersecting).map(e => e.target); if (!hit.length) return;
+      hit.forEach(el => cio.unobserve(el));
+      const t0 = performance.now(), dur = 1100;
+      const step = t => { const p = Math.min(1, (t - t0) / dur), k = 1 - Math.pow(1 - p, 3); hit.forEach(el => { const v = fmt(Math.round(+el.dataset.count * k)); if (el.textContent !== v) el.textContent = v; }); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }, { threshold: .6 });
+    counters.forEach(el => { const r = el.getBoundingClientRect(); if (r.top > innerHeight) { el.textContent = '0'; cio.observe(el); } });
+  }
+
+  const rail = $('#evRail'), bar = $('#carBar'), cbtns = $$('.car-btn');
+  const cardStep = () => { const c = rail.querySelector('.ev'); return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(rail).columnGap || 24) : 340; };
+  let rq = 0;
+  const syncRail = () => {
+    rq = 0; const max = rail.scrollWidth - rail.clientWidth, x = rail.scrollLeft;
+    const vis = rail.clientWidth / rail.scrollWidth, p = max > 0 ? x / max : 1;
+    bar.style.transform = `translateX(${(p * (1 - vis) / vis) * 100}%) scaleX(1)`;
+    bar.style.width = (vis * 100) + '%';
+    cbtns[0].disabled = x <= 2; cbtns[1].disabled = x >= max - 2;
+  };
+  rail.addEventListener('scroll', () => { if (!rq) rq = requestAnimationFrame(syncRail); }, { passive: true });
+  addEventListener('resize', () => { if (!rq) rq = requestAnimationFrame(syncRail); }, { passive: true });
+  syncRail();
+  cbtns.forEach(b => b.addEventListener('click', () => rail.scrollBy({ left: +b.dataset.dir * cardStep(), behavior: reduce ? 'auto' : 'smooth' })));
+  rail.addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); rail.scrollBy({ left: (e.key === 'ArrowRight' ? 1 : -1) * cardStep(), behavior: reduce ? 'auto' : 'smooth' }); } });
+  let drag = null;
+  rail.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: rail.scrollLeft, moved: false, last: e.clientX, v: 0, t: e.timeStamp, raf: 0 };
+  });
+  addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) > 5) { drag.moved = true; rail.classList.add('drag'); rail.setPointerCapture?.(e.pointerId); }
+    if (!drag.moved) return;
+    const dt = Math.max(1, e.timeStamp - drag.t); drag.v = (e.clientX - drag.last) / dt; drag.last = e.clientX; drag.t = e.timeStamp;
+    const target = drag.left - dx;
+    if (!drag.raf) drag.raf = requestAnimationFrame(() => { if (drag) { drag.raf = 0; rail.scrollLeft = target; } });
+  }, { passive: true });
+  const endDrag = () => {
+    if (!drag) return; const d = drag; drag = null;
+    if (!d.moved) return;
+    const stepW = cardStep(), projected = rail.scrollLeft - d.v * 220;
+    const target = Math.max(0, Math.min(rail.scrollWidth - rail.clientWidth, Math.round(projected / stepW) * stepW));
+    rail.scrollTo({ left: target, behavior: reduce ? 'auto' : 'smooth' });
+    const restore = () => rail.classList.remove('drag');
+    if ('onscrollend' in window) rail.addEventListener('scrollend', restore, { once: true }); else setTimeout(restore, 450);
+    setTimeout(restore, 900);
+    const block = ev => { ev.preventDefault(); ev.stopPropagation(); };
+    rail.addEventListener('click', block, { capture: true });
+    setTimeout(() => rail.removeEventListener('click', block, { capture: true }), 80);
+  };
+  addEventListener('pointerup', endDrag); addEventListener('pointercancel', endDrag);
 })();

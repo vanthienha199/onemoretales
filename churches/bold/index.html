@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/hero-poster.webp" type="image/webp">
+<script>document.documentElement.classList.add("js")</script>
 <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -70,11 +71,12 @@
   <video class="hero-vid" id="heroVid" muted loop playsinline preload="none" poster="img/hero-poster.webp" data-src="video/hero.mp4" aria-hidden="true"></video>
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap hero-in">
-    <p class="kicker">One church in Orlando and Lake Nona</p>
-    <h1 id="heroH">Come as you are.</h1>
-    <p class="hero-sub">Loud worship, honest teaching and people who will save you a seat.</p>
-    <div class="hero-bar">
+    <p class="kicker he" style="--i:0">One church in Orlando and Lake Nona</p>
+    <h1 id="heroH" class="he" style="--i:1">Come as you are.</h1>
+    <p class="hero-sub he" style="--i:2">Loud worship, honest teaching and people who will save you a seat.</p>
+    <div class="hero-bar he" style="--i:3">
       <div class="campus-switch" role="group" aria-label="Choose a campus">
+        <span class="cs-ind" aria-hidden="true"></span>
         <button type="button" data-campus="orlando" aria-pressed="true">Orlando</button>
         <button type="button" data-campus="nona" aria-pressed="false">Lake Nona</button>
       </div>
@@ -95,10 +97,10 @@
 
 <section class="stats" aria-label="Northlight by the numbers">
   <div class="wrap stats-in">
-    <div><b>3,200</b><span>people on an average Sunday</span></div>
-    <div><b>140</b><span>life groups meeting in homes</span></div>
-    <div><b>4</b><span>services every weekend</span></div>
-    <div><b>2</b><span>campuses, one church</span></div>
+    <div><b data-count="3200">3,200</b><span>people on an average Sunday</span></div>
+    <div><b data-count="140">140</b><span>life groups meeting in homes</span></div>
+    <div><b data-count="4">4</b><span>services every weekend</span></div>
+    <div><b data-count="2">2</b><span>campuses, one church</span></div>
   </div>
 </section>
 
@@ -242,31 +244,31 @@
     </div>
     <div class="mgrid">
       <article class="mcard" id="kids">
-        <div class="mc-img"><img src="img/kids.webp" srcset="img/kids-640.webp 640w, img/kids.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px" alt="Kids watching a Sunday kids service" width="1200" height="800" loading="lazy" decoding="async"><h3>Kids</h3></div>
+        <div class="mc-img"><img src="img/kids.webp" srcset="img/kids-640.webp 640w, img/kids.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px" alt="Kids watching a Sunday kids service" width="1200" height="800" loading="lazy" decoding="async"><span class="mc-cap"><h3>Kids</h3><span class="mc-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div>
         <p class="mc-k">Birth to 5th grade · every service</p>
         <p>Secure check-in, background-checked leaders and a Bible story your kid will retell at lunch.</p>
         <a class="tlink" href="#visit">Pre-register your kids</a>
       </article>
       <article class="mcard" id="students">
-        <div class="mc-img"><img src="img/students.webp" srcset="img/students-640.webp 640w, img/students.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px" alt="Teenagers sharing pizza and talking" width="1200" height="800" loading="lazy" decoding="async"><h3>Students</h3></div>
+        <div class="mc-img"><img src="img/students.webp" srcset="img/students-640.webp 640w, img/students.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px" alt="Teenagers sharing pizza and talking" width="1200" height="800" loading="lazy" decoding="async"><span class="mc-cap"><h3>Students</h3><span class="mc-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div>
         <p class="mc-k">6th to 12th grade · Wednesdays 7 PM</p>
         <p>At the Orlando campus. Games, worship, a short talk, then small groups by grade. Pizza is not optional.</p>
         <a class="tlink" href="#events">Winter retreat is open</a>
       </article>
       <article class="mcard" id="groups">
-        <div class="mc-img"><img src="img/groups.webp" srcset="img/groups-640.webp 640w, img/groups.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px" alt="Friends sharing dinner around a table" width="1200" height="800" loading="lazy" decoding="async"><h3>Life Groups</h3></div>
+        <div class="mc-img"><img src="img/groups.webp" srcset="img/groups-640.webp 640w, img/groups.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 400px" alt="Friends sharing dinner around a table" width="1200" height="800" loading="lazy" decoding="async"><span class="mc-cap"><h3>Life Groups</h3><span class="mc-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div>
         <p class="mc-k">140 groups · weeknights</p>
         <p>In homes across Orlando, Winter Park and Lake Nona. Dinner, an honest conversation and people who notice when you're missing.</p>
         <a class="tlink" href="#visit">Find a group near you</a>
       </article>
       <article class="mcard" id="women">
-        <div class="mc-img"><img src="img/women.webp" srcset="img/women-640.webp 640w, img/women.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 100vw, 610px" alt="Three women talking on a couch" width="1200" height="800" loading="lazy" decoding="async"><h3>Women</h3></div>
+        <div class="mc-img"><img src="img/women.webp" srcset="img/women-640.webp 640w, img/women.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 100vw, 610px" alt="Three women talking on a couch" width="1200" height="800" loading="lazy" decoding="async"><span class="mc-cap"><h3>Women</h3><span class="mc-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div>
         <p class="mc-k">Tuesday nights · monthly brunch</p>
         <p>A Tuesday study at both campuses and brunch on the first Saturday of the month. College students to grandmothers, same table.</p>
         <a class="tlink" href="#events">See what's next</a>
       </article>
       <article class="mcard" id="men">
-        <div class="mc-img"><img src="img/men.webp" srcset="img/men-640.webp 640w, img/men.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 100vw, 610px" alt="Two men hiking in a forest" width="1200" height="800" loading="lazy" decoding="async"><h3>Men</h3></div>
+        <div class="mc-img"><img src="img/men.webp" srcset="img/men-640.webp 640w, img/men.webp 1200w" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 100vw, 610px" alt="Two men hiking in a forest" width="1200" height="800" loading="lazy" decoding="async"><span class="mc-cap"><h3>Men</h3><span class="mc-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></div>
         <p class="mc-k">Saturdays 7 AM · quarterly trips</p>
         <p>Breakfast at both campuses, plus a hike or camping trip every quarter. Bring an appetite and the question you've been sitting on.</p>
         <a class="tlink" href="#events">Next trip</a>
@@ -282,11 +284,14 @@
         <p class="label">Events</p>
         <h2 id="evH">Coming up</h2>
       </div>
-      <a class="btn line-dark sm" href="#events">All events</a>
+      <div class="car-ctrl">
+        <button class="car-btn" type="button" data-dir="-1" aria-label="Previous events" aria-controls="evRail"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="car-btn" type="button" data-dir="1" aria-label="Next events" aria-controls="evRail"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
     </div>
-    <div class="ev-rail">
+    <div class="ev-rail" id="evRail" tabindex="0" role="region" aria-label="Upcoming events, scroll sideways">
       <article class="ev">
-        <div class="ev-img"><img src="img/ev-serve.webp" srcset="img/ev-serve-560.webp 560w, img/ev-serve.webp 900w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 300px" alt="Volunteers packing food boxes" width="900" height="600" loading="lazy" decoding="async"></div>
+        <div class="ev-img"><img src="img/ev-serve.webp" srcset="img/ev-serve-560.webp 560w, img/ev-serve.webp 900w" sizes="(max-width: 640px) 85vw, 340px" alt="Volunteers packing food boxes" width="900" height="600" loading="lazy" decoding="async"></div>
         <div class="ev-body">
           <time class="ev-date" datetime="2026-11-28"><b>28</b>Nov</time>
           <div>
@@ -297,7 +302,7 @@
         </div>
       </article>
       <article class="ev">
-        <div class="ev-img"><img src="img/ev-worship.webp" srcset="img/ev-worship-560.webp 560w, img/ev-worship.webp 900w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 300px" alt="Worship night with stage lights and crowd" width="900" height="600" loading="lazy" decoding="async"></div>
+        <div class="ev-img"><img src="img/ev-worship.webp" srcset="img/ev-worship-560.webp 560w, img/ev-worship.webp 900w" sizes="(max-width: 640px) 85vw, 340px" alt="Worship night with stage lights and crowd" width="900" height="600" loading="lazy" decoding="async"></div>
         <div class="ev-body">
           <time class="ev-date" datetime="2026-12-04"><b>04</b>Dec</time>
           <div>
@@ -308,7 +313,7 @@
         </div>
       </article>
       <article class="ev">
-        <div class="ev-img"><img src="img/ev-band.webp" srcset="img/ev-band-560.webp 560w, img/ev-band.webp 900w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 300px" alt="Band leading worship in front of a cross" width="900" height="600" loading="lazy" decoding="async"></div>
+        <div class="ev-img"><img src="img/ev-band.webp" srcset="img/ev-band-560.webp 560w, img/ev-band.webp 900w" sizes="(max-width: 640px) 85vw, 340px" alt="Band leading worship in front of a cross" width="900" height="600" loading="lazy" decoding="async"></div>
         <div class="ev-body">
           <time class="ev-date" datetime="2026-12-19"><b>19</b>Dec</time>
           <div>
@@ -319,7 +324,7 @@
         </div>
       </article>
       <article class="ev">
-        <div class="ev-img"><img src="img/ev-retreat.webp" srcset="img/ev-retreat-560.webp 560w, img/ev-retreat.webp 900w" sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 300px" alt="Silhouettes of students celebrating at sunset by a lake" width="900" height="600" loading="lazy" decoding="async"></div>
+        <div class="ev-img"><img src="img/ev-retreat.webp" srcset="img/ev-retreat-560.webp 560w, img/ev-retreat.webp 900w" sizes="(max-width: 640px) 85vw, 340px" alt="Silhouettes of students celebrating at sunset by a lake" width="900" height="600" loading="lazy" decoding="async"></div>
         <div class="ev-body">
           <time class="ev-date" datetime="2027-01-15"><b>15</b>Jan</time>
           <div>
@@ -329,7 +334,30 @@
           </div>
         </div>
       </article>
+      <article class="ev">
+        <div class="ev-img"><img src="img/women.webp" srcset="img/women-640.webp 640w, img/women.webp 1200w" sizes="(max-width: 640px) 85vw, 340px" alt="Three women talking on a couch" width="1200" height="800" loading="lazy" decoding="async"></div>
+        <div class="ev-body">
+          <time class="ev-date" datetime="2027-01-09"><b>09</b>Jan</time>
+          <div>
+            <h3>Women's Brunch</h3>
+            <p class="ev-k">Sat, 10 AM · Lake Nona campus</p>
+            <p>New year, same table. Bring a friend and a story from Christmas.</p>
+          </div>
+        </div>
+      </article>
+      <article class="ev">
+        <div class="ev-img"><img src="img/men.webp" srcset="img/men-640.webp 640w, img/men.webp 1200w" sizes="(max-width: 640px) 85vw, 340px" alt="Two men hiking in a forest" width="1200" height="800" loading="lazy" decoding="async"></div>
+        <div class="ev-body">
+          <time class="ev-date" datetime="2027-01-23"><b>23</b>Jan</time>
+          <div>
+            <h3>Men: Hike at Wekiwa Springs</h3>
+            <p class="ev-k">Sat, 7 AM · Meet at Orlando campus</p>
+            <p>Six miles, breakfast after, carpools from the Orlando campus.</p>
+          </div>
+        </div>
+      </article>
     </div>
+    <div class="car-prog" aria-hidden="true"><i id="carBar"></i></div>
   </div>
 </section>
 
@@ -369,12 +397,12 @@
 
     <h2 class="staff-h" id="staffH">Our team</h2>
     <ul class="staff" aria-labelledby="staffH">
-      <li><img src="img/staff-1.webp" srcset="img/staff-1-300.webp 300w, img/staff-1.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Marcus Reed" width="520" height="520" loading="lazy" decoding="async"><b>Marcus Reed</b><span>Lead Pastor</span></li>
-      <li><img src="img/staff-3.webp" srcset="img/staff-3-300.webp 300w, img/staff-3.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Dev Raman" width="520" height="520" loading="lazy" decoding="async"><b>Dev Raman</b><span>Lake Nona Campus Pastor</span></li>
-      <li><img src="img/staff-6.webp" srcset="img/staff-6-300.webp 300w, img/staff-6.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Vy Nguyen" width="520" height="520" loading="lazy" decoding="async"><b>Vy Nguyen</b><span>Worship Leader</span></li>
-      <li><img src="img/staff-2.webp" srcset="img/staff-2-300.webp 300w, img/staff-2.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Jordan Okafor" width="520" height="520" loading="lazy" decoding="async"><b>Jordan Okafor</b><span>Students Pastor</span></li>
-      <li><img src="img/staff-4.webp" srcset="img/staff-4-300.webp 300w, img/staff-4.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Linh Tran" width="520" height="520" loading="lazy" decoding="async"><b>Linh Tran</b><span>Kids Director</span></li>
-      <li><img src="img/staff-5.webp" srcset="img/staff-5-300.webp 300w, img/staff-5.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Sara Haddad" width="520" height="520" loading="lazy" decoding="async"><b>Sara Haddad</b><span>Life Groups Director</span></li>
+      <li><span class="st-img"><img src="img/staff-1.webp" srcset="img/staff-1-300.webp 300w, img/staff-1.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Marcus Reed" width="520" height="520" loading="lazy" decoding="async"></span><b>Marcus Reed</b><span>Lead Pastor</span></li>
+      <li><span class="st-img"><img src="img/staff-3.webp" srcset="img/staff-3-300.webp 300w, img/staff-3.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Dev Raman" width="520" height="520" loading="lazy" decoding="async"></span><b>Dev Raman</b><span>Lake Nona Campus Pastor</span></li>
+      <li><span class="st-img"><img src="img/staff-6.webp" srcset="img/staff-6-300.webp 300w, img/staff-6.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Vy Nguyen" width="520" height="520" loading="lazy" decoding="async"></span><b>Vy Nguyen</b><span>Worship Leader</span></li>
+      <li><span class="st-img"><img src="img/staff-2.webp" srcset="img/staff-2-300.webp 300w, img/staff-2.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Jordan Okafor" width="520" height="520" loading="lazy" decoding="async"></span><b>Jordan Okafor</b><span>Students Pastor</span></li>
+      <li><span class="st-img"><img src="img/staff-4.webp" srcset="img/staff-4-300.webp 300w, img/staff-4.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Linh Tran" width="520" height="520" loading="lazy" decoding="async"></span><b>Linh Tran</b><span>Kids Director</span></li>
+      <li><span class="st-img"><img src="img/staff-5.webp" srcset="img/staff-5-300.webp 300w, img/staff-5.webp 520w" sizes="(max-width: 640px) 50vw, (max-width: 1000px) 33vw, 190px" alt="Sara Haddad" width="520" height="520" loading="lazy" decoding="async"></span><b>Sara Haddad</b><span>Life Groups Director</span></li>
     </ul>
   </div>
 </section>
