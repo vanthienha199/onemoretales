@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="p/no-shadow.jpg">
+<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('omt-intro'))d.classList.add('intro-run')}catch(e){}setTimeout(function(){d.classList.add('title-safe')},5000)})();</script>
 <style>
 :root {
   --ink: #181a36; --ink2: #2a2d55; --paper: #fffaf0; --paper2: #f3ead6;
@@ -74,7 +75,7 @@ nav .brick { font-size: 17px; padding: 8px 16px; box-shadow: 0 4px 0 var(--ink);
 .tales { background: linear-gradient(180deg, var(--sky1) 0, var(--sky2) 70svh, #ffe7a6 120svh, #ffc97c 100%); overflow: clip; }
 .bd-castle { left: 0; right: 0; top: 0; height: 100svh; overflow: hidden; }
 .bd-castle > div { position: absolute; left: 0; right: 0; }
-.bd-castle .clouds { top: 9svh; height: 32svh; }
+.bd-castle .clouds { top: 2svh; height: 22svh; }
 .bd-castle .far { bottom: 0; height: 52svh; }
 .bd-castle .castle { bottom: 0; height: 64svh; }
 .bd-castle .near { bottom: 0; height: 15svh; }
@@ -105,9 +106,32 @@ nav .brick { font-size: 17px; padding: 8px 16px; box-shadow: 0 4px 0 var(--ink);
 .intro { grid-column: 1; min-height: 100svh; padding-top: calc(var(--nav) + 6svh); padding-bottom: 34svh; }
 .kicker { display: inline-flex; align-items: center; gap: 10px; background: var(--ink); color: #fff; font-weight: 900; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; padding: 7px 14px; border-radius: 6px; transform: rotate(var(--r, 0deg)); }
 .kicker i { width: 9px; height: 9px; background: var(--sun); border-radius: 2px; }
-h1 { font-size: clamp(56px, 9.6vw, 132px); line-height: .98; margin: var(--s4) 0 var(--s4); letter-spacing: -.005em; }
-h1 .w { display: inline-block; }
-.pitch { font-size: clamp(20px, 2vw, 25px); font-weight: 800; max-width: 22em; line-height: 1.4; }
+.title { position: relative; font-size: clamp(52px, 7.6vw, 112px); line-height: 1; margin: var(--s4) 0 var(--s5); padding-left: .42em; letter-spacing: 0; }
+.title .ln { display: block; white-space: nowrap; }
+.title .l2 { margin-left: 2.9em; color: var(--sun); }
+.title .lt { display: inline-block; }
+.title .hc { position: absolute; z-index: 3; height: auto; max-width: none; pointer-events: none; filter: drop-shadow(2.5px 0 0 var(--ink)) drop-shadow(-2.5px 0 0 var(--ink)) drop-shadow(0 2.5px 0 var(--ink)) drop-shadow(0 -2.5px 0 var(--ink)) drop-shadow(0 7px 0 rgba(24, 26, 54, .28)); }
+html.js .title .lt:not(.in), html.js .title .hc:not(.in) { opacity: 0; }
+html.title-safe .title .lt, html.title-safe .title .hc { opacity: 1; }
+.title .lt.in, .title .hc.in { animation: snap .56s var(--ease) both; animation-delay: calc(var(--i, 0) * 42ms); }
+.title .hc.in { animation-delay: calc(var(--i, 0) * 130ms); }
+.introfx { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.wallfx { position: absolute; }
+.wallfx i { position: absolute; background: #e5413a; border: 2px solid #8f231d; border-radius: 3px; box-shadow: inset 0 -5px 0 rgba(0, 0, 0, .16), inset 0 4px 0 rgba(255, 255, 255, .22); will-change: transform, opacity; }
+.wallfx i.y { background: #ffd93b; border-color: #a77d00; } .wallfx i.b { background: #2f74e0; border-color: #1a4594; }
+.wallfx.smash i { animation: fly .78s cubic-bezier(.2, .7, .35, 1) forwards; animation-delay: var(--dl, 0ms); }
+@keyframes fly { 0% { transform: none; opacity: 1; } 35% { transform: translate(calc(var(--dx) * .45), calc(var(--dy) * .25 - 70px)) rotate(calc(var(--rt) * .4)); opacity: 1; } 75% { opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rt)); opacity: 0; } }
+.rexfx { position: absolute; left: 0; will-change: transform, opacity; }
+.rexfx svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.rexfx.walk { animation: rexin .78s cubic-bezier(.45, 0, .85, .55) forwards; }
+.rexfx.out { animation: rexout 1.05s cubic-bezier(.2, .6, .4, 1) forwards; }
+@keyframes rexin { from { transform: translateX(var(--x0)); } to { transform: translateX(var(--x1)); } }
+@keyframes rexout { from { transform: translateX(var(--x1)); opacity: 1; } 65% { opacity: 1; } to { transform: translateX(var(--x2)); opacity: 0; } }
+.skipfx { position: absolute; right: -6px; top: -10px; z-index: 5; pointer-events: auto; background: var(--paper); color: var(--ink); text-shadow: none; font-family: "Nunito", system-ui, sans-serif; font-weight: 900; font-size: 14px; line-height: 1.2; letter-spacing: 0; border: 2.5px solid var(--ink); border-radius: 999px; padding: 4px 12px; cursor: pointer; box-shadow: 0 3px 0 var(--ink); }
+@media (min-width: 1200px) { .pitch { white-space: nowrap; } }
+.cue { position: absolute; z-index: 3; left: 30%; top: calc(100svh - 104px); width: 56px; height: 56px; display: grid; place-items: center; animation: hop 1.3s var(--ease) infinite; }
+.cue svg { width: 56px; height: 56px; filter: drop-shadow(0 4px 0 rgba(24, 26, 54, .25)); }
+.pitch { display: inline-block; font-size: clamp(20px, 1.9vw, 24px); font-weight: 800; max-width: 24em; line-height: 1.4; background: var(--paper); border: 3px solid var(--ink); border-radius: 12px; padding: 10px 18px; box-shadow: 0 5px 0 var(--ink); }
 .pitch b { background: linear-gradient(transparent 58%, var(--sun) 58%); padding: 0 2px; }
 .ctas { display: flex; gap: var(--s4); flex-wrap: wrap; margin-top: var(--s5); }
 .intro .proof { display: flex; width: fit-content; }
@@ -115,8 +139,6 @@ h1 .w { display: inline-block; }
 .proof .num { background: var(--red); color: #fff; font-family: "Lilita One", system-ui, sans-serif; font-size: 28px; line-height: 1; padding: 8px 12px; border-radius: 6px; }
 .proof span { font-weight: 800; line-height: 1.25; font-size: 16px; }
 .proof small { display: block; font-weight: 600; color: var(--mute); font-size: 14px; }
-.scrollhint { display: inline-flex; align-items: center; gap: 10px; margin-top: var(--s5); font-weight: 800; font-size: 16px; background: rgba(255,250,240,.92); border: 2.5px solid var(--ink); border-radius: 999px; padding: 6px 16px 6px 12px; }
-.scrollhint svg { width: 22px; height: 22px; animation: hop 1.4s var(--ease) infinite; }
 @keyframes hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
 
 .pin { grid-column: 2; grid-row: 1 / span 2; align-self: start; position: sticky; top: calc(var(--nav) + 20px); height: calc(100svh - var(--nav) - 40px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s3); padding-top: var(--s2); }
@@ -165,18 +187,19 @@ h1 .w { display: inline-block; }
 @media (max-width: 900px) {
   .tgrid { grid-template-columns: 1fr; padding: 0; }
   .intro { min-height: 0; padding: calc(var(--nav) + 14px) var(--s3) var(--s3); }
-  h1 { font-size: clamp(50px, 14vw, 88px); margin: var(--s3) 0 var(--s3); }
-  .pitch { font-size: 18px; }
+  .intro .kicker { display: none; }
+  .title { font-size: calc((100vw - 32px) / 6.3); margin: 6px 0 var(--s4); }
+  .pitch { font-size: 17px; padding: 8px 12px; }
+  .cue, .bd-castle .clouds { display: none; }
   .ctas { gap: var(--s3); margin-top: var(--s4); } .ctas .brick { font-size: 17px; padding: 9px 14px; }
   .intro .proof { display: none; }
-  .scrollhint { display: none; }
   .pin { grid-column: 1; grid-row: auto; top: var(--nav); height: auto; z-index: 5; padding: 14px 0 10px; gap: 10px; background: linear-gradient(180deg, var(--sky2), #d7f2ff); border-block: 3px solid var(--ink); }
   .sticker { display: block; }
   .band-art { display: block; position: absolute; inset: 0; overflow: hidden; z-index: -1; }
   .band-art .bl { position: absolute; left: 0; bottom: 0; height: 64%; width: 34%; }
   .band-art .br { position: absolute; right: 0; bottom: 0; height: 58%; width: 34%; }
   .band-art .bg { position: absolute; left: 0; right: 0; bottom: 0; height: 12%; }
-  .phone { height: min(50svh, 470px); border-width: 6px; border-radius: 26px; box-shadow: 0 0 0 3px var(--ink), 6px 8px 0 3px var(--ink); transform: none; }
+  .phone { height: min(46svh, 440px); border-width: 6px; border-radius: 26px; box-shadow: 0 0 0 3px var(--ink), 6px 8px 0 3px var(--ink); transform: none; }
   .phone .tag { font-size: 13px; }
   .snd { bottom: 16px; font-size: 14px; padding: 7px 13px; }
   .chapters { padding: var(--s4) var(--s3) 30svh; }
@@ -338,12 +361,11 @@ footer a { color: #fff; }
 .snap { opacity: 0; }
 .snap.in { opacity: 1; animation: snap .58s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms); }
 @keyframes snap { 0% { opacity: 0; transform: translateY(-46px) rotate(var(--r, 0deg)); } 55% { opacity: 1; transform: translateY(5px) scaleY(.95) rotate(var(--r, 0deg)); } 78% { transform: translateY(-3px) rotate(var(--r, 0deg)); } 100% { opacity: 1; transform: translateY(0) rotate(var(--r, 0deg)); } }
-h1 .w.snap.in { animation-duration: .62s; }
 .snap.in.done { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .snap { opacity: 1; } html { scroll-behavior: auto; }
+  .snap, .title .lt, .title .hc { opacity: 1 !important; } html { scroll-behavior: auto; } .introfx, .cue { display: none; }
   .night .flyer { display: none; }
 }
 </style>
@@ -385,17 +407,23 @@ h1 .w.snap.in { animation-duration: .62s; }
     </div>
   </div>
 
+  <a class="cue" href="#ch-skip-button" aria-label="Scroll to the tales"><svg viewBox="0 0 56 56" aria-hidden="true"><rect x="10" y="4" width="10" height="7" rx="2" fill="#ffd93b" stroke="#181a36" stroke-width="2.5"/><rect x="36" y="4" width="10" height="7" rx="2" fill="#ffd93b" stroke="#181a36" stroke-width="2.5"/><rect x="4" y="9" width="48" height="26" rx="5" fill="#ffd93b" stroke="#181a36" stroke-width="3"/><path d="M18 19l10 9 10-9" fill="none" stroke="#181a36" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 41l6 6 6-6" fill="none" stroke="#181a36" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <div class="wrap tgrid">
     <div class="intro">
       <span class="kicker snap" style="--r:-2deg"><i></i>Story Shorts studio</span>
-      <h1 class="disp toon"><span class="w snap" style="--i:1">One</span> <span class="w snap" style="--i:2">More</span> <span class="w snap y" style="--i:3;color:var(--sun)">Tales</span></h1>
+      <h1 class="disp toon title" id="title" aria-label="One More Tales">
+        <span class="ln l1" aria-hidden="true"><span class="wd">One</span> <span class="wd" id="wMore">More</span></span>
+        <span class="ln l2" aria-hidden="true"><span class="wd" id="wTales">Tales</span></span>
+        <img class="hc" id="cLeo" src="img/hero-leo-hug.png" alt="" width="365" height="520" style="--i:0">
+        <img class="hc" id="cRot" src="img/hero-rot-hang.png" alt="" width="400" height="520" style="--i:1">
+        <img class="hc" id="cHat" src="img/hero-hattrick-sit.png" alt="" width="458" height="520" style="--i:2">
+      </h1>
       <p class="pitch snap" style="--i:4">Roblox-style story Shorts, <b>from script to final cut.</b></p>
       <div class="ctas snap" style="--i:5">
         <a class="brick" href="#watch"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3l12 7-12 7z" fill="currentColor"/></svg>Watch the tales</a>
         <a class="brick w" href="#contact">Work with me</a>
       </div>
       <div class="proof snap" style="--i:6;--r:-1.5deg"><span class="num">39K+</span><span>views in 2 days on our best Short<small>The Boy With No Shadow, across platforms</small></span></div>
-      <div class="scrollhint snap" style="--i:7"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Scroll, the phone plays each tale</div>
     </div>
 
     <div class="pin" id="pin">
@@ -565,7 +593,7 @@ function palm(x, y, s) { let t = ''; for (let i = 0; i < 5; i++) t += B(x - s * 
 
 function castle() {
   const st = '#c9c2b4', st2 = '#d9d3c7', roof = '#e5413a', rb = '#2f74e0';
-  let s = '<g transform="translate(16 84) scale(.88)">';
+  let s = '<g transform="translate(420 322) scale(.54)">';
   // hill terraces with studs
   s += B(250, 560, 1100, 140, '#45ad3e', 60, { studs: 22 });
   s += B(390, 470, 820, 90, '#4fbb47', 52, { studs: 16 });
@@ -589,7 +617,7 @@ function castle() {
   return svg(1600, 700, s + '</g>');
 }
 function farHills() { let s = ''; const c = ['#9fdcae', '#8fd29f']; [[0, 380, 520, 1], [420, 300, 520, 0], [880, 360, 420, 1], [1220, 280, 480, 0]].forEach(([x, y, w, k]) => { s += B(x, y, w, 520 - y + 200, c[k], 0); s += B(x + w * .2, y - 60, w * .5, 60, c[k], 0); s += B(x + w * .32, y - 110, w * .22, 50, c[k], 0); }); return svg(1600, 520, s); }
-function clouds() { return svg(1600, 260, `<g class="drift">${cloud(120, 150, 46) + cloud(560, 90, 34) + cloud(980, 170, 52) + cloud(1380, 80, 38) + cloud(1750, 150, 44)}</g>`, 'xMidYMid slice'); }
+function clouds() { return svg(1600, 260, `<g class="drift">${cloud(-80, 90, 30) + cloud(760, 70, 30) + cloud(1080, 170, 46) + cloud(1400, 90, 38) + cloud(1760, 160, 44)}</g>`, 'xMidYMid slice'); }
 function nearGround() { let s = B(-40, 70, 1700, 120, '#3ea338', 40, { studs: 40 }); s += B(180, 40, 90, 30, '#e5413a', 22, { studs: 3 }) + B(1340, 30, 120, 40, '#ffd93b', 26, { studs: 4 }) + B(1390, -8, 60, 38, '#2f74e0', 20, { studs: 2 }); s += tree(80, 70, 60) + tree(1530, 70, 70, '#4cb944'); return svg(1600, 190, s); }
 
 function rex() {
@@ -785,6 +813,66 @@ $('#copy').addEventListener('click', async () => {
 /* ---------- reveal: blocks snap into place ---------- */
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
 $$('.snap').forEach(el => { io.observe(el); el.addEventListener('animationend', ev => { if (ev.target === el) el.classList.add('done'); }); });
+
+/* ---------- hero title: letters, the cast on the letters, the T-rex intro ---------- */
+const title = $('#title');
+let li = 0; $$('#title .wd').forEach(w => { w.innerHTML = [...w.textContent].map(ch => `<span class="lt" style="--i:${li++}">${ch}</span>`).join(''); });
+const LT = $$('#title .lt'), HC = $$('#title .hc');
+const fontMetrics = F => { const c = document.createElement('canvas').getContext('2d'); c.font = `${F}px "Lilita One"`; const m = c.measureText('OMTH'); return { fa: m.fontBoundingBoxAscent || F * .9, fd: m.fontBoundingBoxDescent || F * .25, cap: m.actualBoundingBoxAscent || F * .7 }; };
+function placeCast() {
+  title.style.fontSize = ''; title.querySelector('.l2').style.marginLeft = '';
+  for (let pass = 0; pass < 2; pass++) {
+    const F = parseFloat(getComputedStyle(title).fontSize), hb = title.getBoundingClientRect();
+    const R = el => { const r = el.getBoundingClientRect(); return { l: r.left - hb.left, t: r.top - hb.top, w: r.width, h: r.height, r: r.right - hb.left }; };
+    const M = R($('#wMore .lt')); title.querySelector('.l2').style.marginLeft = (M.r - parseFloat(getComputedStyle(title).paddingLeft) + F * .14) + 'px';
+    const tl = $$('#wTales .lt'), last = R(tl[tl.length - 1]);
+    const avail = title.parentElement.clientWidth;
+    if (pass === 0 && last.r + F * .62 > avail) { title.style.fontSize = (F * avail / (last.r + F * .62) * .985) + 'px'; continue; }
+    const m = fontMetrics(F), cap = m.cap;
+    const base = r => r.t + (r.h - (m.fa + m.fd)) / 2 + m.fa;
+    const O = R(LT[0]), Mx = R($('#wMore .lt')), e = R(tl[tl.length - 2]), s = R(tl[tl.length - 1]);
+    const put = (el, x, y, h) => { el.style.height = h + 'px'; el.style.width = 'auto'; el.style.left = x + 'px'; el.style.top = y + 'px'; };
+    const hL = cap * 1.62, wL = hL * 365 / 520; put($('#cLeo'), O.l + O.w * .5 - wL, base(O) + F * .05 - hL, hL);
+    const hR = cap * 1.6, wR = hR * 400 / 520; put($('#cRot'), Mx.l + Mx.w / 2 - wR / 2, base(Mx) - hR * .17, hR);
+    const hH = cap * 1.6, wH = hH * 458 / 520; put($('#cHat'), s.r - wH * .38, base(s) - cap - hH * .66, hH);
+    return { F, hb };
+  }
+}
+function revealTitle(delay = 0) {
+  LT.forEach(l => { l.style.animationDelay = `${delay + +l.style.getPropertyValue('--i') * 42}ms`; l.classList.add('in'); });
+  HC.forEach((h, i) => { h.style.animationDelay = `${delay + LT.length * 42 + 120 + i * 140}ms`; h.classList.add('in'); });
+}
+function finishIntro() { const fx = $('.introfx'); if (fx) fx.remove(); clearTimeout(finishIntro.t1); clearTimeout(finishIntro.t2); clearTimeout(finishIntro.t3); try { sessionStorage.setItem('omt-intro', '1'); } catch (e) {} }
+function runIntro() {
+  const F = parseFloat(getComputedStyle(title).fontSize), hb = title.getBoundingClientRect();
+  const lts = LT.map(l => l.getBoundingClientRect());
+  const x0 = Math.min(...lts.map(r => r.left)) - hb.left - F * .08, x1r = Math.max(...lts.map(r => r.right)) - hb.left + F * .08;
+  const y0 = Math.min(...lts.map(r => r.top)) - hb.top + F * .08, y1 = Math.max(...lts.map(r => r.bottom)) - hb.top - F * .12;
+  const fx = document.createElement('div'); fx.className = 'introfx'; fx.setAttribute('aria-hidden', 'true');
+  const bw = F * .52, bh = F * .27; let bricks = '', k = 0; seed = 5;
+  for (let r = 0, y = y1 - bh; y > y0 - bh * .5; r++, y -= bh) for (let x = x0 - (r % 2 ? bw / 2 : 0); x < x1r; x += bw) {
+    const cx = Math.max(x, x0), w = Math.min(x + bw, x1r) - cx; if (w < 6) continue; const dir = (cx - x0) / (x1r - x0);
+    const c = rnd() < .12 ? ' class="y"' : rnd() < .1 ? ' class="b"' : '';
+    bricks += `<i${c} style="left:${(cx - x0).toFixed(1)}px;top:${(y - y0 + bh * .5).toFixed(1)}px;width:${w.toFixed(1)}px;height:${bh.toFixed(1)}px;--dx:${(80 + dir * 380 + rnd() * 220).toFixed(0)}px;--dy:${(120 + rnd() * 260).toFixed(0)}px;--rt:${((rnd() - .3) * 540).toFixed(0)}deg;--dl:${(dir * 140 + rnd() * 60).toFixed(0)}ms"></i>`; k++;
+  }
+  const rh = F * 2.05, rw = rh * 570 / 370;
+  fx.innerHTML = `<div class="wallfx" style="left:${x0}px;top:${y0 - bh * .5}px;width:${x1r - x0}px;height:${y1 - y0 + bh * .5}px">${bricks}</div><div class="rexfx" style="top:${y1 - rh + F * .1}px;width:${rw}px;height:${rh}px;--x0:${-hb.left - rw - 40}px;--x1:${x0 - rw * .9}px;--x2:${x1r + 120}px"><svg viewBox="-262 -362 572 372" aria-hidden="true">${rex()}</svg></div><button class="skipfx" type="button">Skip intro</button>`;
+  title.appendChild(fx);
+  fx.querySelector('.skipfx').addEventListener('click', () => { finishIntro(); LT.concat(HC).forEach(el => { el.style.animationDelay = '0ms'; el.classList.add('in'); }); });
+  const rexEl = fx.querySelector('.rexfx'); rexEl.classList.add('walk');
+  finishIntro.t1 = setTimeout(() => { fx.querySelector('.wallfx').classList.add('smash'); rexEl.classList.remove('walk'); rexEl.classList.add('out'); }, 760);
+  finishIntro.t2 = setTimeout(() => revealTitle(0), 880);
+  finishIntro.t3 = setTimeout(finishIntro, 2600);
+}
+let introStarted = false;
+function heroStart() {
+  if (introStarted) return; introStarted = true;
+  placeCast();
+  if (document.documentElement.classList.contains('intro-run')) runIntro(); else revealTitle(120);
+}
+(document.fonts && document.fonts.ready ? Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 900))]) : Promise.resolve()).then(heroStart);
+let rzc; addEventListener('resize', () => { clearTimeout(rzc); rzc = setTimeout(placeCast, 120); });
+if (document.fonts) document.fonts.addEventListener && document.fonts.addEventListener('loadingdone', () => placeCast());
 
 /* ---------- parallax + nav ---------- */
 drawArt();
