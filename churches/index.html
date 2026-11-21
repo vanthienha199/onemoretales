@@ -6,6 +6,7 @@
 <title>Church Websites by Ha Le</title>
 <meta name="description" content="Three church website designs you can click through: warm, bold and traditional. Service times on the first screen, Plan a Visit, sermons, events, prayer and Tithely giving built in.">
 <meta name="theme-color" content="#ffffff">
+<link rel="icon" href="../favicon.png">
 <style>
 :root {
   --bg: #ffffff; --soft: #f4f5f7; --line: #e3e5e8; --ink: #111418; --text: #2b2f36; --muted: #5b616b;
@@ -64,7 +65,48 @@ footer { border-top: 1px solid var(--line); padding: 20px 0 28px; color: var(--m
   .band, .contact { padding: 40px 0; }
   .top a.mail { padding: 0 14px; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* ---- interaction layer (transform/opacity only) ---- */
+:root { --ease: cubic-bezier(.2, .7, .3, 1); }
+header.top { position: sticky; top: 0; z-index: 10; background: #fff; transition: box-shadow .25s var(--ease); }
+header.top.scrolled { box-shadow: 0 6px 20px rgba(17,20,24,.07); }
+.top a.mail, .btn, .open a { transition: background-color .15s, color .15s, transform .18s var(--ease), box-shadow .18s var(--ease); }
+@media (hover: hover) {
+  .top a.mail:hover, .btn:hover, .open a:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(17,20,24,.16); }
+}
+.top a.mail:active, .btn:active, .open a:active { transform: scale(.97); box-shadow: none; transition-duration: .08s; }
+.intro > * { animation: rise .55s var(--ease) both; }
+.intro > :nth-child(2) { animation-delay: .07s; }
+.grid .demo { animation: rise .6s var(--ease) backwards; }
+.grid .demo:nth-child(1) { animation-delay: .14s; } .grid .demo:nth-child(2) { animation-delay: .21s; } .grid .demo:nth-child(3) { animation-delay: .28s; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+.demo { position: relative; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0px)); transition: transform .35s var(--ease), border-color .15s, box-shadow .3s var(--ease); }
+.demo.tilting { transition: transform .08s linear, border-color .15s, box-shadow .3s var(--ease); }
+@media (hover: hover) { .demo:hover { --lift: -6px; box-shadow: 0 18px 40px rgba(17,20,24,.12); } }
+.shot { overflow: hidden; position: relative; }
+.shot img { transition: transform .6s var(--ease); }
+@media (hover: hover) { .demo:hover .shot img { transform: scale(1.045); } }
+.shot::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at var(--gx, 50%) var(--gy, 0%), rgba(255,255,255,.28), rgba(255,255,255,0) 55%); opacity: 0; transition: opacity .3s; pointer-events: none; }
+.demo.tilting .shot::after { opacity: 1; }
+.open a::after { content: "\2192"; display: inline-block; transition: transform .2s var(--ease); }
+.open a:hover::after { transform: translateX(4px); }
+.marquee { overflow: hidden; border-top: 1px solid var(--line); padding: 18px 0; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.mq-track { display: flex; gap: 12px; width: max-content; animation: mq 40s linear infinite; }
+.marquee:hover .mq-track { animation-play-state: paused; }
+.mq-track span { white-space: nowrap; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; font-size: 15px; color: var(--ink); background: #fff; }
+@keyframes mq { to { transform: translateX(-50%); } }
+.rv { opacity: 0; translate: 0 16px; }
+.rv.in { opacity: 1; translate: 0 0; transition: opacity .45s var(--ease) var(--d, 0s), translate .45s var(--ease) var(--d, 0s); }
+.list li::before { transition: transform .3s var(--ease) var(--d, 0s); }
+.list li.rv::before { transform: rotate(-45deg) scale(0); }
+.list li.rv.in::before { transform: rotate(-45deg) scale(1); }
+#copy { min-width: 8.5em; justify-content: center; }
+#copy.done { background: var(--ink); color: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rv { opacity: 1 !important; translate: none !important; }
+  .demo { transform: none !important; }
+  .mq-track { flex-wrap: wrap; width: auto; }
+}
 </style>
 </head>
 <body>
@@ -111,6 +153,13 @@ footer { border-top: 1px solid var(--line); padding: 20px 0 28px; color: var(--m
     </article>
   </section>
 
+  <div class="marquee" aria-hidden="true">
+    <div class="mq-track">
+      <span>Plan a Visit form</span><span>Service times on the first screen</span><span>Tithely giving</span><span>Sermon player</span><span>Live stream countdown</span><span>Events</span><span>Kids check-in info</span><span>Prayer requests</span><span>Staff and beliefs</span><span>Map and directions</span><span>Fast on phones</span>
+      <span>Plan a Visit form</span><span>Service times on the first screen</span><span>Tithely giving</span><span>Sermon player</span><span>Live stream countdown</span><span>Events</span><span>Kids check-in info</span><span>Prayer requests</span><span>Staff and beliefs</span><span>Map and directions</span><span>Fast on phones</span>
+    </div>
+  </div>
+
   <section class="band" aria-labelledby="inc-title">
     <div class="wrap band-in">
       <h2 id="inc-title">Every site includes</h2>
@@ -141,11 +190,54 @@ footer { border-top: 1px solid var(--line); padding: 20px 0 28px; color: var(--m
   <div class="wrap">Demo churches, names and addresses are fictional. Photos are free-license from Unsplash.</div>
 </footer>
 <script>
-document.getElementById('copy').addEventListener('click', function () {
-  var b = this, done = function (t) { b.textContent = t; setTimeout(function () { b.textContent = 'Copy email'; }, 1600); };
-  if (navigator.clipboard) navigator.clipboard.writeText('hello@onemoretales.com').then(function () { done('Copied'); }, function () { done('hello@onemoretales.com'); });
-  else done('hello@onemoretales.com');
-});
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, hasIO = 'IntersectionObserver' in window;
+  /* sticky header gains a shadow once the page scrolls (sentinel, no scroll handler) */
+  var top = document.querySelector('header.top'), intro = document.querySelector('.intro');
+  if (hasIO) new IntersectionObserver(function (e) { top.classList.toggle('scrolled', !e[0].isIntersecting); }, { rootMargin: '-65px 0px 0px 0px', threshold: 0.99 }).observe(intro.querySelector('h1'));
+  /* reveal the includes list once, with a stagger; nothing is hidden without JS */
+  if (hasIO && !reduce) {
+    var els = [].slice.call(document.querySelectorAll('.band h2, .list li, .contact > *')), tops = els.map(function (el) { return el.getBoundingClientRect().top; }), vh = innerHeight;
+    var io = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); e.target.classList.add('in'); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el, i) {
+      if (tops[i] < vh) return;
+      var k = el.parentElement.classList.contains('list') ? [].indexOf.call(el.parentElement.children, el) : 0;
+      el.style.setProperty('--d', Math.min(k * 0.05, 0.35) + 's');
+      el.classList.add('rv'); io.observe(el);
+    });
+    setTimeout(function () { els.forEach(function (el) { el.classList.add('in'); }); }, 4000);
+  }
+  /* cards tilt toward the pointer (mouse only, one rAF per move) */
+  if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    [].forEach.call(document.querySelectorAll('.demo'), function (card) {
+      var raf = 0, x = 0, y = 0, box = null;
+      card.addEventListener('pointerenter', function () { box = card.getBoundingClientRect(); card.classList.add('tilting'); });
+      card.addEventListener('pointermove', function (e) {
+        x = e.clientX; y = e.clientY;
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          raf = 0; if (!box) return;
+          var px = (x - box.left) / box.width, py = (y - box.top) / box.height;
+          card.style.setProperty('--ry', ((px - 0.5) * 6).toFixed(2) + 'deg');
+          card.style.setProperty('--rx', ((0.5 - py) * 5).toFixed(2) + 'deg');
+          card.style.setProperty('--gx', (px * 100).toFixed(0) + '%');
+          card.style.setProperty('--gy', (py * 100).toFixed(0) + '%');
+        });
+      }, { passive: true });
+      card.addEventListener('pointerleave', function () {
+        box = null; card.classList.remove('tilting');
+        card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg');
+      });
+    });
+  }
+  /* copy email with feedback; width is fixed so the row never shifts */
+  var b = document.getElementById('copy');
+  b.addEventListener('click', function () {
+    var done = function (t) { b.textContent = t; b.classList.add('done'); setTimeout(function () { b.textContent = 'Copy email'; b.classList.remove('done'); }, 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText('hello@onemoretales.com').then(function () { done('Copied'); }, function () { done('Select the address'); });
+    else done('Select the address');
+  });
+})();
 </script>
 </body>
 </html>

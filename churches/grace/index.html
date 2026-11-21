@@ -20,9 +20,9 @@
 
 <header class="site-head" id="top">
   <div class="head-in">
-    <a class="brand" href="#top" aria-label="Grace Harbor Church, back to top">
+    <a class="brand" href="#top">
       <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--brand)"/><path d="M11.5 32V19a8.5 8.5 0 0 1 17 0v13" fill="none" stroke="#fff" stroke-width="3"/><path d="M20 14.5v11M15.6 19h8.8" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
-      <span class="brand-txt">Grace Harbor<small>Church</small></span>
+      <span class="brand-txt">Grace Harbor <small>Church</small></span>
     </a>
     <nav class="main-nav" aria-label="Main">
       <a href="#visit">Sundays</a>
@@ -65,7 +65,7 @@
 
 <!-- HERO -->
 <section class="hero" aria-labelledby="hero-title">
-  <img class="hero-img" src="img/hero-1600.webp" srcset="img/hero-1000.webp 1000w, img/hero-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Families greeting each other in the church lobby before a Sunday service" fetchpriority="high">
+  <div class="hero-media"><img class="hero-img" src="img/hero-1600.webp" srcset="img/hero-1000.webp 1000w, img/hero-1600.webp 1600w" sizes="100vw" width="1600" height="1067" alt="Families greeting each other in the church lobby before a Sunday service" fetchpriority="high"></div>
   <div class="hero-in wrap">
     <p class="eyebrow eyebrow-light">College Park, Orlando</p>
     <h1 id="hero-title">A church family in Orlando<span class="stop">.</span></h1>
@@ -101,9 +101,17 @@
       <p class="sign"><b>Pastor Daniel &amp; Mai Tran</b><span>Lead Pastor</span></p>
       <a class="btn btn-brand" href="#new">Let us know you're coming</a>
     </div>
-    <figure class="welcome-photo">
+    <figure class="welcome-photo ph">
       <img src="img/hero-hug.webp" width="740" height="732" loading="lazy" alt="Two women sharing a warm hug in the sanctuary">
     </figure>
+  </div>
+  <div class="wrap">
+    <ul class="stats" aria-label="Grace Harbor in numbers">
+      <li><b data-count="1998" data-plain>1998</b><span>Gathering in College Park since</span></li>
+      <li><b data-count="12">12</b><span>Life Groups in homes across Orlando</span></li>
+      <li><b data-count="60" data-suffix="+">60+</b><span>Trained Kids volunteers</span></li>
+      <li><b data-count="2">2</b><span>Languages every Sunday, English and Vietnamese</span></li>
+    </ul>
   </div>
 </section>
 
@@ -141,13 +149,36 @@
       <div class="times-card card">
         <img src="img/doormat-wide.webp" width="640" height="360" loading="lazy" alt="A doormat that reads Come as you are">
         <div class="times-body">
-          <h3 class="h4">Service times</h3>
-          <dl class="times">
-            <div><dt>Sunday 9:00 AM</dt><dd>English service, kids and nursery</dd></div>
-            <div><dt>Sunday 11:00 AM</dt><dd>English service, kids and nursery</dd></div>
-            <div><dt>Sunday 11:00 AM</dt><dd>Vietnamese service in the Chapel</dd></div>
-            <div><dt>Wednesday 7:00 PM</dt><dd>Prayer night and Students</dd></div>
-          </dl>
+          <h3 class="h4" id="svc-title">Service times</h3>
+          <div class="svc-tabs" role="tablist" aria-labelledby="svc-title">
+            <span class="svc-ind" aria-hidden="true"></span>
+            <button role="tab" id="svc-t1" aria-controls="svc-p1" aria-selected="true">Sun 9:00</button>
+            <button role="tab" id="svc-t2" aria-controls="svc-p2" aria-selected="false" tabindex="-1">Sun 11:00</button>
+            <button role="tab" id="svc-t3" aria-controls="svc-p3" aria-selected="false" tabindex="-1">Vietnamese</button>
+            <button role="tab" id="svc-t4" aria-controls="svc-p4" aria-selected="false" tabindex="-1">Wed 7:00</button>
+          </div>
+          <div class="svc-panels">
+            <div class="svc-panel" role="tabpanel" id="svc-p1" aria-labelledby="svc-t1" tabindex="0">
+              <p class="svc-when">Sunday 9:00 AM · Main room</p>
+              <p>English service with a quieter, early-morning feel. Kids and nursery open at 8:45.</p>
+              <p class="svc-tip">Best for families with little ones.</p>
+            </div>
+            <div class="svc-panel" role="tabpanel" id="svc-p2" aria-labelledby="svc-t2" tabindex="0" hidden>
+              <p class="svc-when">Sunday 11:00 AM · Main room</p>
+              <p>English service with the full band. Kids and nursery open at 10:45, coffee in the courtyard after.</p>
+              <p class="svc-tip">Our busiest service. Come 10 minutes early for parking.</p>
+            </div>
+            <div class="svc-panel" role="tabpanel" id="svc-p3" aria-labelledby="svc-t3" tabindex="0" hidden>
+              <p class="svc-when">Sunday 11:00 AM · Chapel</p>
+              <p>Vietnamese service led by Pastor Minh Nguyen, with lunch together once a month.</p>
+              <p class="svc-tip">Kids join the 11:00 kids program in English.</p>
+            </div>
+            <div class="svc-panel" role="tabpanel" id="svc-p4" aria-labelledby="svc-t4" tabindex="0" hidden>
+              <p class="svc-when">Wednesday 7:00 PM · Main room</p>
+              <p>Prayer night for adults, and Students (6th to 12th grade) meet in the youth room.</p>
+              <p class="svc-tip">Supper is served at 6:15. Everyone is welcome.</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -186,6 +217,32 @@
         </div>
       </div>
     </div>
+
+    <div class="faq">
+      <h3 class="h3">Questions people ask</h3>
+      <div class="faq-list">
+        <details class="qa">
+          <summary>Do I need to sign up before I come?</summary>
+          <div class="qa-a"><div><p>No. Just show up. Filling in the form above only lets us save you a parking spot and meet you at the door.</p></div></div>
+        </details>
+        <details class="qa">
+          <summary>What happens during the service?</summary>
+          <div class="qa-a"><div><p>About 25 minutes of songs, a short prayer, and a 35 to 40 minute message from the Bible. You can sing along or just listen. Nobody will single you out.</p></div></div>
+        </details>
+        <details class="qa">
+          <summary>Is there something for my kids?</summary>
+          <div class="qa-a"><div><p>Yes, at both Sunday services: nursery for babies, and classes up to 5th grade. You get a matching tag to pick them up, and we text you if they need you.</p></div></div>
+        </details>
+        <details class="qa">
+          <summary>Do you have a Vietnamese service?</summary>
+          <div class="qa-a"><div><p>Yes, Sundays at 11:00 AM in the Chapel, led by Pastor Minh Nguyen. Bilingual families often split between the two 11:00 services.</p></div></div>
+        </details>
+        <details class="qa">
+          <summary>Will I be asked to give money?</summary>
+          <div class="qa-a"><div><p>No. Guests are our guests. There is a giving box by the courtyard doors and online giving for people who call Grace Harbor home.</p></div></div>
+        </details>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -206,7 +263,9 @@
     <div class="watch-grid">
       <div class="player" id="player">
         <button class="poster" type="button" aria-label="Play sermon: A Seat with Your Name on It, 38:12">
-          <img src="img/sermon.webp" loading="lazy" width="1500" height="1000" alt="">
+          <img class="poster-a" src="img/sermon.webp" loading="lazy" width="1500" height="1000" alt="">
+          <img class="poster-b" src="img/sermon.webp" loading="lazy" width="1500" height="1000" alt="">
+          <span class="poster-cap" aria-hidden="true"><small>Latest</small><span data-cap>A Seat with Your Name on It</span></span>
           <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
           <span class="dur">38:12</span>
         </button>
@@ -222,10 +281,12 @@
         <h3 class="h3">A Seat with Your Name on It</h3>
         <p class="meta-line">Room at the Table, part 3 · Pastor Daniel Tran · Luke 14:15-24</p>
         <p>Jesus tells a story about a dinner where the invited guests make excuses, so the host fills the room with everyone else. This week: what it means that the table was set for you before you ever said yes.</p>
+        <p class="recent-label">More messages <span>hover or tap to preview</span></p>
         <ul class="recent">
-          <li><a href="#player"><span class="r-title">When the House Is Full</span><span class="r-meta">Nov 8 · 41 min</span></a></li>
-          <li><a href="#player"><span class="r-title">Bread for the Road</span><span class="r-meta">Nov 1 · 36 min</span></a></li>
-          <li><a href="#player"><span class="r-title">The Long Way Home</span><span class="r-meta">Oct 25 · 39 min</span></a></li>
+          <li><button type="button" class="r-item is-current" data-poster="img/sermon.webp" data-len="38:12" data-title="A Seat with Your Name on It"><span class="r-title">A Seat with Your Name on It</span><span class="r-meta">Nov 15 · 38 min</span></button></li>
+          <li><button type="button" class="r-item" data-poster="img/s-full.webp" data-len="41:05" data-title="When the House Is Full"><span class="r-title">When the House Is Full</span><span class="r-meta">Nov 8 · 41 min</span></button></li>
+          <li><button type="button" class="r-item" data-poster="img/s-bread.webp" data-len="36:40" data-title="Bread for the Road"><span class="r-title">Bread for the Road</span><span class="r-meta">Nov 1 · 36 min</span></button></li>
+          <li><button type="button" class="r-item" data-poster="img/s-home.webp" data-len="39:18" data-title="The Long Way Home"><span class="r-title">The Long Way Home</span><span class="r-meta">Oct 25 · 39 min</span></button></li>
         </ul>
         <div class="listen">
           <a class="btn btn-sm btn-outline-light" href="#player">YouTube</a>
@@ -245,23 +306,23 @@
     </div>
     <ul class="min-grid">
       <li class="min">
-        <img src="img/kids.webp" width="900" height="600" loading="lazy" alt="Two boys laughing and splashing in a kiddie pool" style="object-position:70% 50%">
+        <div class="ph"><img src="img/kids.webp" width="900" height="600" loading="lazy" alt="Two boys laughing and splashing in a kiddie pool" style="object-position:70% 50%"><span class="ph-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
         <div><h3>Kids</h3><p>Nursery to 5th grade during both Sunday services, with secure check-in.</p></div>
       </li>
       <li class="min">
-        <img src="img/students.webp" width="900" height="600" loading="lazy" alt="A group of high school friends smiling together outdoors" style="object-position:40% 50%">
+        <div class="ph"><img src="img/students.webp" width="900" height="600" loading="lazy" alt="A group of high school friends smiling together outdoors" style="object-position:40% 50%"><span class="ph-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
         <div><h3>Students</h3><p>6th to 12th grade. Wednesdays at 7 PM, plus summer camp.</p></div>
       </li>
       <li class="min">
-        <img src="img/women.webp" width="900" height="507" loading="lazy" alt="Four women hugging and laughing outdoors">
+        <div class="ph"><img src="img/women.webp" width="900" height="507" loading="lazy" alt="Four women hugging and laughing outdoors"><span class="ph-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
         <div><h3>Women</h3><p>Tuesday morning Bible study and a brunch on the first Saturday.</p></div>
       </li>
       <li class="min">
-        <img src="img/men.webp" width="900" height="600" loading="lazy" alt="Two men sharing a big hug after a Sunday service">
+        <div class="ph"><img src="img/men.webp" width="900" height="600" loading="lazy" alt="Two men sharing a big hug after a Sunday service"><span class="ph-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
         <div><h3>Men</h3><p>Saturday 7 AM breakfast, then a few hours serving the neighborhood.</p></div>
       </li>
       <li class="min">
-        <img src="img/groups.webp" width="900" height="600" loading="lazy" alt="A small group talking around a patio table">
+        <div class="ph"><img src="img/groups.webp" width="900" height="600" loading="lazy" alt="A small group talking around a patio table"><span class="ph-more" aria-hidden="true">Learn more <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
         <div><h3>Life Groups</h3><p>Twelve groups in homes across Orlando, most weeknights.</p></div>
       </li>
     </ul>
@@ -279,11 +340,52 @@
       <p class="sec-note">No stage lights, no fog machine. Just a few hundred people who keep showing up for each other.</p>
     </div>
     <div class="life-grid">
-      <img class="lg-big" src="img/family.webp" width="1000" height="800" loading="lazy" alt="A family sharing lunch at home after church">
-      <img src="img/life-1.webp" width="800" height="533" loading="lazy" alt="Friends laughing together in the lobby">
-      <img src="img/life-4.webp" width="800" height="533" loading="lazy" alt="Older women laughing and holding hands">
-      <img src="img/life-10.webp" width="800" height="533" loading="lazy" alt="Volunteers cooking a Wednesday supper together">
-      <img src="img/life-7.webp" width="1000" height="667" loading="lazy" alt="Two older men laughing over coffee">
+      <div class="ph lg-big"><img src="img/family.webp" width="1000" height="800" loading="lazy" alt="A family sharing lunch at home after church"></div>
+      <div class="ph"><img src="img/life-1.webp" width="800" height="533" loading="lazy" alt="Friends laughing together in the lobby"></div>
+      <div class="ph"><img src="img/life-4.webp" width="800" height="533" loading="lazy" alt="Older women laughing and holding hands"></div>
+      <div class="ph"><img src="img/life-10.webp" width="800" height="533" loading="lazy" alt="Volunteers cooking a Wednesday supper together"></div>
+      <div class="ph"><img src="img/life-7.webp" width="1000" height="667" loading="lazy" alt="Two older men laughing over coffee"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORIES -->
+<section class="section stories" id="stories" aria-labelledby="stories-title">
+  <div class="wrap">
+    <div class="sec-head sec-row">
+      <div>
+        <p class="eyebrow">Stories</p>
+        <h2 id="stories-title" class="h2">Why people stay</h2>
+      </div>
+      <div class="st-controls">
+        <button class="st-btn" type="button" data-st="prev" aria-label="Previous story"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H6M11 6l-6 6 6 6"/></svg></button>
+        <button class="st-btn" type="button" data-st="pause" aria-label="Pause auto-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M8 5h3v14H8zM13 5h3v14h-3z"/><path class="i-play" d="M8 5.5v13l11-6.5z"/></svg></button>
+        <button class="st-btn" type="button" data-st="next" aria-label="Next story"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="st-track" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Stories from people at Grace Harbor, swipe or use the arrows">
+      <figure class="st-card">
+        <blockquote>"I came the first Sunday after my divorce and sat in the back row. A grandma I had never met saved me a seat the next week, and every week after that."</blockquote>
+        <figcaption><img src="img/t-thao.webp" width="240" height="240" loading="lazy" alt=""><span><b>Thao</b>Member since 2021</span></figcaption>
+      </figure>
+      <figure class="st-card">
+        <blockquote>"My parents go to the Vietnamese service and I go to the English one at the same time. Then we all eat lunch together in the courtyard. That is our Sunday."</blockquote>
+        <figcaption><img src="img/t-kevin.webp" width="240" height="240" loading="lazy" alt=""><span><b>Kevin</b>Students volunteer</span></figcaption>
+      </figure>
+      <figure class="st-card">
+        <blockquote>"When my husband was in the hospital, my Life Group brought dinner for three weeks. I did not have to ask once."</blockquote>
+        <figcaption><img src="img/t-mai.webp" width="240" height="240" loading="lazy" alt=""><span><b>Mrs. Mai</b>Vietnamese service</span></figcaption>
+      </figure>
+      <figure class="st-card">
+        <blockquote>"I thought church was for people who had it together. Here it is mostly people like me who are still figuring it out."</blockquote>
+        <figcaption><img src="img/t-robert.webp" width="240" height="240" loading="lazy" alt=""><span><b>Robert</b>Men's breakfast regular</span></figcaption>
+      </figure>
+    </div>
+    <div class="st-dots" role="group" aria-label="Choose a story">
+      <button type="button" aria-label="Story 1" aria-current="true"></button>
+      <button type="button" aria-label="Story 2"></button>
+      <button type="button" aria-label="Story 3"></button>
+      <button type="button" aria-label="Story 4"></button>
     </div>
   </div>
 </section>
@@ -300,7 +402,7 @@
     </div>
     <div class="ev-grid">
       <article class="ev-feature card">
-        <img src="img/friendsgiving.webp" width="1100" height="733" loading="lazy" alt="A long table full of people sharing a meal">
+        <div class="ph"><img src="img/friendsgiving.webp" width="1100" height="733" loading="lazy" alt="A long table full of people sharing a meal"></div>
         <div class="ev-body">
           <p class="ev-date">Sunday, Nov 29 · 12:30 PM</p>
           <h3 class="h3">Friendsgiving Potluck</h3>
@@ -317,7 +419,7 @@
           </div>
         </li>
         <li class="ev-row">
-          <img class="ev-thumb" src="img/baptism.webp" width="900" height="601" loading="lazy" alt="People celebrating a baptism in a pool">
+          <div class="ph ev-ph"><img class="ev-thumb" src="img/baptism.webp" width="900" height="601" loading="lazy" alt="People celebrating a baptism in a pool"></div>
           <div>
             <p class="ev-date">Sunday, Jan 10 · Both services</p>
             <h3>Baptism Sunday</h3>
@@ -325,7 +427,7 @@
           </div>
         </li>
         <li class="ev-row">
-          <img class="ev-thumb" src="img/lunar.webp" width="1100" height="733" loading="lazy" alt="A multigenerational crowd celebrating together">
+          <div class="ph ev-ph"><img class="ev-thumb" src="img/lunar.webp" width="1100" height="733" loading="lazy" alt="A multigenerational crowd celebrating together"></div>
           <div>
             <p class="ev-date">Saturday, Feb 6 · 5:00 PM</p>
             <h3>Lunar New Year Celebration</h3>
@@ -403,12 +505,12 @@
       <h2 id="staff-title" class="h2">The people you will meet</h2>
     </div>
     <ul class="staff-grid">
-      <li><img src="img/staff-daniel.webp" width="560" height="700" loading="lazy" alt="Daniel Tran"><h3>Daniel Tran</h3><p>Lead Pastor</p></li>
-      <li><img src="img/staff-minh.webp" width="560" height="700" loading="lazy" alt="Minh Nguyen"><h3>Minh Nguyen</h3><p>Pastor, Vietnamese Ministry</p></li>
-      <li><img src="img/staff-linh.webp" width="560" height="700" loading="lazy" alt="Linh Pham"><h3>Linh Pham</h3><p>Women &amp; Care</p></li>
-      <li><img src="img/staff-david.webp" width="560" height="700" loading="lazy" alt="David Moreno"><h3>David Moreno</h3><p>Worship &amp; Arts</p></li>
-      <li><img src="img/staff-josh.webp" width="560" height="700" loading="lazy" alt="Josh Hoang"><h3>Josh Hoang</h3><p>Students</p></li>
-      <li><img src="img/staff-anna.webp" width="560" height="700" loading="lazy" alt="Anna Vo"><h3>Anna Vo</h3><p>Kids Director</p></li>
+      <li><div class="ph"><img src="img/staff-daniel.webp" width="560" height="700" loading="lazy" alt="Daniel Tran"></div><h3>Daniel Tran</h3><p>Lead Pastor</p></li>
+      <li><div class="ph"><img src="img/staff-minh.webp" width="560" height="700" loading="lazy" alt="Minh Nguyen"></div><h3>Minh Nguyen</h3><p>Pastor, Vietnamese Ministry</p></li>
+      <li><div class="ph"><img src="img/staff-linh.webp" width="560" height="700" loading="lazy" alt="Linh Pham"></div><h3>Linh Pham</h3><p>Women &amp; Care</p></li>
+      <li><div class="ph"><img src="img/staff-david.webp" width="560" height="700" loading="lazy" alt="David Moreno"></div><h3>David Moreno</h3><p>Worship &amp; Arts</p></li>
+      <li><div class="ph"><img src="img/staff-josh.webp" width="560" height="700" loading="lazy" alt="Josh Hoang"></div><h3>Josh Hoang</h3><p>Students</p></li>
+      <li><div class="ph"><img src="img/staff-anna.webp" width="560" height="700" loading="lazy" alt="Anna Vo"></div><h3>Anna Vo</h3><p>Kids Director</p></li>
     </ul>
   </div>
 </section>
