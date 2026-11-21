@@ -1,0 +1,81 @@
+[
+ {
+  "id": "no-shadow",
+  "title": "The Boy With No Shadow",
+  "ep": "Tale #2",
+  "hook": "He had no shadow... until the storm came.",
+  "fb": "25.4K",
+  "yt": "12.9K",
+  "total": "39K+",
+  "dur": 60,
+  "mb": 7.0
+ },
+ {
+  "id": "skip-button",
+  "title": "The Skip Button",
+  "ep": "Tale #1",
+  "hook": "She skipped every boring day... even Sundays with Grandpa.",
+  "fb": "7.1K",
+  "yt": "1.8K",
+  "dur": 60,
+  "mb": 5.5
+ },
+ {
+  "id": "masked-hero",
+  "title": "The Masked Hero",
+  "ep": "Tale #3",
+  "hook": "In this town, my dad was the most boring man alive...",
+  "fb": "4.8K",
+  "yt": "1.6K",
+  "dur": 60,
+  "mb": 9.8
+ },
+ {
+  "id": "minimalist",
+  "title": "Hattrick Lame: The Minimalist",
+  "ep": "Series · Part 1",
+  "hook": "My name is Hattrick Lame, the world's most famous Minimalist...",
+  "badge": "New",
+  "fb": "2.9K",
+  "yt": "1.2K",
+  "note": "in its first 6 hours",
+  "dur": 60,
+  "mb": 8.5
+ },
+ {
+  "id": "rotminator",
+  "title": "The Rotminator: The Last Brainrot",
+  "ep": "Series · Part 1",
+  "hook": "In this world, I'm the guy who travels through time to destroy brainrot...",
+  "badge": "New series",
+  "dur": 60,
+  "mb": 9.5
+ },
+ {
+  "id": "vn-no-shadow",
+  "title": "The Boy With No Shadow (Vietnamese)",
+  "ep": "Tale #2 · VN",
+  "hook": "",
+  "lang": "vi",
+  "dur": 60,
+  "mb": 6.9
+ },
+ {
+  "id": "vn-skip-button",
+  "title": "The Skip Button (Vietnamese)",
+  "ep": "Tale #1 · VN",
+  "hook": "",
+  "lang": "vi",
+  "dur": 60,
+  "mb": 5.6
+ },
+ {
+  "id": "vn-masked-hero",
+  "title": "The Masked Hero (Vietnamese)",
+  "ep": "Tale #3 · VN",
+  "hook": "",
+  "lang": "vi",
+  "dur": 60,
+  "mb": 10.4
+ }
+]

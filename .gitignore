@@ -1,0 +1,5 @@
+shots/
+*.log
+.DS_Store
+__pycache__/
+qa.js
